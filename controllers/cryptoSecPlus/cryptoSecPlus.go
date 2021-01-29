@@ -34,9 +34,15 @@ func EncryptFromText(a []string, crypto []string) {
 	Save(encryptedText)
 
 }
-func EncryptFromFile() {}
-func DecryptFromText() {}
-func DecryptFromFile() {}
+func EncryptFromFile() {
+	fmt.Println("This function will be added in the future")
+}
+func DecryptFromText() {
+	fmt.Println("This function will be added in the future")
+}
+func DecryptFromFile() {
+	fmt.Println("This function will be added in the future")
+}
 
 func Save(encryptedText string) {
 	date := time.Now().String()
