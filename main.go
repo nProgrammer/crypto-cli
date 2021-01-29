@@ -3,11 +3,34 @@ package main
 import "fmt"
 
 func main() {
+	a, crypto := prepareApp()
+	app(a, crypto)
+}
+
+func app(a []string, crypto []string) {
+	option := 1
+	for option != 5 {
+		writeOptions()
+		option = 5
+	}
+}
+
+func prepareApp() ([]string, []string) {
 	a := createAlphabetSlice()
 	fmt.Println(a)
 
 	crypto := prepareCryptoAlphabetSlice(a)
 	fmt.Println(crypto)
+	return a, crypto
+}
+
+func writeOptions() {
+	fmt.Print("What do you want to do? \n",
+		"	1. Encrypt typed string, \n",
+		"	2. Encrypt text from file, \n",
+		"	3. Decrypt typed string, \n",
+		"	4. Decrypt text from file, \n",
+		"	5. Exit. \n")
 }
 
 func createAlphabetSlice() []string {
