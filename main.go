@@ -15,7 +15,7 @@ func main() {
 }
 
 func app(a []string, crypto []string) {
-	reader := bufio.NewReader(os.Stdin) // za pomocą tej instrukcji tworzymy czytnik
+	reader := bufio.NewReader(os.Stdin)
 	option := 1
 	for option != 5 {
 		writeOptions()
@@ -33,7 +33,7 @@ func app(a []string, crypto []string) {
 			}
 			switch f {
 			case 1:
-				encryptFromText()
+				encryptFromText(a, crypto)
 				break
 			case 2:
 				encryptFromFile()
@@ -51,7 +51,48 @@ func app(a []string, crypto []string) {
 	}
 }
 
-func encryptFromText() {}
+func encryptFromText(a []string, crypto []string) {
+	fmt.Print("Create your secret key: ")
+	reader := bufio.NewReader(os.Stdin) // za pomocą tej instrukcji tworzymy czytnik
+
+	str, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	key := strings.TrimSpace(str)
+	keyA := strings.Split(key, "")
+
+	keyValue := 0
+	i := 0
+	for i < len(keyA) {
+		j := 0
+		for j < len(a) {
+			if a[j] == keyA[i] {
+				keyValue += j
+				break
+			}
+			j++
+		}
+		i++
+	}
+
+	str, err = reader.ReadString('\n')
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	content := strings.TrimSpace(str)
+	contentA := strings.Split(content, "")
+
+	i = 0
+	for i < len(contentA) {
+		break
+	}
+	fmt.Println(keyValue)
+}
 func encryptFromFile() {}
 func decryptFromText() {}
 func decryptFromFile() {}
