@@ -1,6 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"log"
+	"os"
+	"strconv"
+	"strings"
+)
 
 func main() {
 	a, crypto := prepareApp()
@@ -8,12 +15,46 @@ func main() {
 }
 
 func app(a []string, crypto []string) {
+	reader := bufio.NewReader(os.Stdin) // za pomocą tej instrukcji tworzymy czytnik
 	option := 1
 	for option != 5 {
 		writeOptions()
-		option = 5
+		fmt.Print("Enter option's number: ")
+		str, err := reader.ReadString('\n')
+
+		f, err := strconv.Atoi(strings.TrimSpace(str))
+
+		if err != nil {
+			log.Fatal(err)
+		} else {
+			fmt.Printf("You choosed option %v \n", f)
+			if f > 5 || f < 0 {
+				app(a, crypto)
+			}
+			switch f {
+			case 1:
+				encryptFromText()
+				break
+			case 2:
+				encryptFromFile()
+				break
+			case 3:
+				decryptFromText()
+				break
+			case 4:
+				decryptFromFile()
+				break
+			case 5:
+				option = 5
+			}
+		}
 	}
 }
+
+func encryptFromText() {}
+func encryptFromFile() {}
+func decryptFromText() {}
+func decryptFromFile() {}
 
 func prepareApp() ([]string, []string) {
 	a := createAlphabetSlice()
