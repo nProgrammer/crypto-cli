@@ -3,10 +3,12 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -52,6 +54,7 @@ func app(a []string, crypto []string) {
 }
 
 func encryptFromText(a []string, crypto []string) {
+	var encryptedText = []string{}
 	fmt.Print("Create your secret key: ")
 	reader := bufio.NewReader(os.Stdin) // za pomocą tej instrukcji tworzymy czytnik
 
@@ -88,10 +91,31 @@ func encryptFromText(a []string, crypto []string) {
 	contentA := strings.Split(content, "")
 
 	i = 0
+	value := 0
 	for i < len(contentA) {
-		break
+		j := 0
+		for j < len(a) {
+			if a[j] == contentA[i] {
+				value = j + keyValue
+				newChar := crypto[value]
+				encryptedText = append(encryptedText, newChar)
+			}
+			j++
+		}
+		i++
 	}
 	fmt.Println(keyValue)
+	fmt.Println(encryptedText)
+	encryptedTextS := strings.Join(encryptedText, "")
+	date := time.Now().String()
+	fileName := "./crypted-" + strings.TrimSpace(date) + ".txt"
+	file, err := os.Create(fileName)
+	checkError(err)
+	defer file.Close()
+	ln, err := io.WriteString(file, encryptedTextS)
+	checkError(err)
+	fmt.Println(ln)
+
 }
 func encryptFromFile() {}
 func decryptFromText() {}
@@ -137,4 +161,10 @@ func prepareCryptoAlphabetSlice(a []string) []string {
 		i++
 	}
 	return cryptoSlice
+}
+
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
