@@ -3,6 +3,7 @@ package controllers
 import (
 	"bufio"
 	"crypto-cli/controllers/cryptoSecPlus"
+	"crypto-cli/errors"
 	"crypto-cli/views"
 	"fmt"
 	"log"
@@ -17,9 +18,7 @@ func CryptoSecApp(option int, a []string, crypto []string) {
 		views.WriteSecOptions()
 		fmt.Print("Enter option's number: ")
 		str, err := reader.ReadString('\n')
-		if err != nil {
-			panic(err)
-		}
+		errors.CheckError(err)
 
 		f, err := strconv.Atoi(strings.TrimSpace(str))
 

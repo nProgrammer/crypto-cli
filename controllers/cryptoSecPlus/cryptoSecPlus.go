@@ -2,6 +2,7 @@ package cryptoSecPlus
 
 import (
 	"bufio"
+	"crypto-cli/errors"
 	"fmt"
 	"io"
 	"os"
@@ -14,17 +15,12 @@ func EncryptFromText(a []string, crypto []string) {
 	reader := bufio.NewReader(os.Stdin)
 
 	str, err := reader.ReadString('\n')
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	errors.CheckError(err)
 
 	keyValue, keyF, keyS := ValueOfKey(str, a)
 
 	str, err = reader.ReadString('\n')
-	if err != nil {
-		panic(err)
-	}
+	errors.CheckError(err)
 
 	fmt.Println(keyValue)
 
@@ -52,8 +48,7 @@ func Save(encryptedText string) {
 	}
 	defer file.Close()
 	ln, err := io.WriteString(file, encryptedText)
-	if err != nil {
-		panic(err)
-	}
+	errors.CheckError(err)
+
 	fmt.Println(ln)
 }

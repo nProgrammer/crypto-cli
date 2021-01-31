@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"bufio"
+	"crypto-cli/errors"
 	"crypto-cli/views"
 	"fmt"
 	"log"
@@ -17,9 +18,7 @@ func App(a []string, crypto []string) {
 		views.WriteMainOptions()
 		fmt.Print("Enter option's number: ")
 		str, err := reader.ReadString('\n')
-		if err != nil {
-			panic(err)
-		}
+		errors.CheckError(err)
 		f, err := strconv.Atoi(strings.TrimSpace(str))
 		if err != nil {
 			log.Fatal(err)
