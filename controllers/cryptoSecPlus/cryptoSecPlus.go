@@ -11,7 +11,7 @@ import (
 
 func EncryptFromText(a []string, crypto []string) {
 	fmt.Print("Create your secret key: ")
-	reader := bufio.NewReader(os.Stdin) // za pomocą tej instrukcji tworzymy czytnik
+	reader := bufio.NewReader(os.Stdin)
 
 	str, err := reader.ReadString('\n')
 	if err != nil {
@@ -19,7 +19,7 @@ func EncryptFromText(a []string, crypto []string) {
 		return
 	}
 
-	keyValue := ValueOfKey(str, a)
+	keyValue, keyF, keyS := ValueOfKey(str, a)
 
 	str, err = reader.ReadString('\n')
 	if err != nil {
@@ -29,7 +29,7 @@ func EncryptFromText(a []string, crypto []string) {
 
 	fmt.Println(keyValue)
 
-	encryptedText := Encrypt(str, keyValue, crypto, a)
+	encryptedText := Encrypt(str, keyValue, keyF, keyS, crypto, a)
 
 	Save(encryptedText)
 

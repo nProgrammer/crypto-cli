@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func Encrypt(str string, keyValue int, crypto []string, a []string) string {
+func Encrypt(str string, keyValue int, keyF int, keyS int, crypto []string, a []string) string {
 	var encryptedText = []string{}
 	content := strings.TrimSpace(str)
 	content = strings.ToUpper(content)
@@ -17,9 +17,19 @@ func Encrypt(str string, keyValue int, crypto []string, a []string) string {
 		j := 0
 		for j < len(a) {
 			if a[j] == contentA[i] {
-				value = j + keyValue
-				newChar := crypto[value]
-				encryptedText = append(encryptedText, newChar)
+				if j == 0 {
+					value = j + keyF
+					newChar := crypto[value]
+					encryptedText = append(encryptedText, newChar)
+				} else if j == len(a)-1 {
+					value = j + keyS
+					newChar := crypto[value]
+					encryptedText = append(encryptedText, newChar)
+				} else {
+					value = j + keyValue
+					newChar := crypto[value]
+					encryptedText = append(encryptedText, newChar)
+				}
 			}
 			j++
 		}
