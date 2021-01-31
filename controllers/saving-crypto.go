@@ -11,7 +11,10 @@ import (
 func Save(encryptedText string) {
 	date := time.Now().String()
 	fileName := "./crypted/crypted-" + strings.TrimSpace(date) + ".txt"
-	file, _ := os.Create(fileName)
+	file, err := os.Create(fileName)
+	if err != nil {
+		panic(err)
+	}
 	defer file.Close()
 	ln, _ := io.WriteString(file, encryptedText)
 	fmt.Println(ln)

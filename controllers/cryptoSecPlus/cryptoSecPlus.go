@@ -23,8 +23,7 @@ func EncryptFromText(a []string, crypto []string) {
 
 	str, err = reader.ReadString('\n')
 	if err != nil {
-		fmt.Println(err)
-		return
+		panic(err)
 	}
 
 	fmt.Println(keyValue)
@@ -47,8 +46,14 @@ func DecryptFromFile() {
 func Save(encryptedText string) {
 	date := time.Now().String()
 	fileName := "./crypted/crypted-" + strings.TrimSpace(date) + ".txt"
-	file, _ := os.Create(fileName)
+	file, err := os.Create(fileName)
+	if err != nil {
+		panic(err)
+	}
 	defer file.Close()
-	ln, _ := io.WriteString(file, encryptedText)
+	ln, err := io.WriteString(file, encryptedText)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println(ln)
 }

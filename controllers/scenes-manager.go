@@ -17,6 +17,9 @@ func CryptoSecApp(option int, a []string, crypto []string) {
 		views.WriteSecOptions()
 		fmt.Print("Enter option's number: ")
 		str, err := reader.ReadString('\n')
+		if err != nil {
+			panic(err)
+		}
 
 		f, err := strconv.Atoi(strings.TrimSpace(str))
 
